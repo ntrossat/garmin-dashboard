@@ -1,2 +1,9 @@
+# Environments
 .env
 .vscode
+
+# Python
+__pycache__/
+
+# Postgres Data
+__data__/
