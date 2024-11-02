@@ -3,7 +3,7 @@ from typing import Union, List
 from fastapi import FastAPI, Depends, HTTPException
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
-from core.postgres.db import init_db, get_session
+from core.postgres.db import get_session
 from api.models.activity import Activity
 
 app = FastAPI()
@@ -12,13 +12,6 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Hello World!"}
-
-
-# TODO Replaced with Alembic
-
-# @app.on_event("startup")
-# def on_startup():
-#     await init_db()
 
 
 @app.get("/activities", response_model=List[Activity])
