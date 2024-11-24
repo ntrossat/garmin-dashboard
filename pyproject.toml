@@ -1,7 +1,7 @@
 [project]
-name = "minimalist-fastapi"
+name = "garmin-dashboard"
 version = "0.1.0"
-description = "Minimalist FastAPI Template"
+description = "Garmin Dashboard"
 authors = ["Nicolas Trossat <nicolas@trossat.com>"]
 license = "MIT"
 readme = "README.md"
@@ -9,6 +9,7 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.14.0",
     "asyncpg>=0.30.0",
+    "click>=8.1.7",
     "fastapi[standard]>=0.115.5",
     "sqlmodel>=0.0.22",
 ]
