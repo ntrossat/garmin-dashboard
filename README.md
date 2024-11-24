@@ -1,1 +1,37 @@
-# garmin-dashboard
+## Gamin Dashboard
+
+Provide a dashboard to visualize your Garmin data.
+
+## Features
+
+- **FastAPI** application with basic endpoints
+- **Docker** for building and running the application
+- **PostgreSQL** to host your data
+- **SQLModel** to interact with you DB
+- **uv** for dependencies
+
+
+## Getting Started
+
+1. Install repository:
+```bash
+git clone git@github.com:ntrossat/garmin-dashboard.git
+```
+
+2. Open the folder:
+```bash
+cd garmin-dashboard
+```
+
+2. Copy the configuration file:
+```bash
+cp .env.example .env
+```
+
+3. Build and Run the Docker:
+```bash
+docker compose up --build
+```
+
+4. Access the application at `http://localhost:8000`.
+
