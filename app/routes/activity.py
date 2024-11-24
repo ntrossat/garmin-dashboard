@@ -11,7 +11,6 @@ router = APIRouter()
 
 @router.get("/", response_model=list[Activity])
 async def get_activities(
-    repository: ActivityRepository = Depends(get_session),
     session: AsyncSession = Depends(get_session),
 ) -> list[Activity]:
     """Get all activities."""
