@@ -9,10 +9,10 @@ services:
       - .:/app
     ports:
       - 8000:8000
-    restart: no
     depends_on:
       - alembic
       - postgres
+    restart: unless-stopped
 
   alembic:
     build: 
@@ -38,4 +38,4 @@ services:
       interval: 1s
       timeout: 1s
       retries: 10
-    
+    restart: unless-stopped
