@@ -25,9 +25,10 @@ def upgrade() -> None:
         sa.Column("name", sqlmodel.sql.sqltypes.AutoString(), nullable=False),
         sa.Column("description", sqlmodel.sql.sqltypes.AutoString(), nullable=False),
         sa.Column("type", sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column("start_date", sqlmodel.sql.sqltypes.AutoString(), nullable=True),
-        sa.Column("end_date", sqlmodel.sql.sqltypes.AutoString(), nullable=True),
-        sa.PrimaryKeyConstraint('id')
+        sa.Column('start_at', sa.DateTime(timezone=True), nullable=False),
+        sa.Column('end_at', sa.DateTime(timezone=True), nullable=False),
+        sa.PrimaryKeyConstraint('id'),
+        sa.UniqueConstraint('type', 'start_at', name='unique_type_start_at')
     )
 
 
