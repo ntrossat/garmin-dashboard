@@ -1,0 +1,14 @@
+[project]
+name = "minimalist-fastapi"
+version = "0.1.0"
+description = "Minimalist FastAPI Template"
+authors = ["Nicolas Trossat <nicolas@trossat.com>"]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.14.0",
+    "asyncpg>=0.30.0",
+    "fastapi[standard]>=0.115.5",
+    "sqlmodel>=0.0.22",
+]
