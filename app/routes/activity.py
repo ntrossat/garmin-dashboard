@@ -1,30 +1,30 @@
-from datetime import datetime
-from typing import List, Any
+import uuid
 
 from fastapi import APIRouter, HTTPException, Depends
 
 from core.postgres.db import get_session, AsyncSession
-from api.models.activity import Activity, ActivityCreate
-from api.models.response import MessageResponse
+from app.models import Activity, ActivityInput, MessageResponse
+from app.repositories import ActivityRepository
 
 router = APIRouter()
 
 
-@router.get("/", response_model=List[Activity])
+@router.get("/", response_model=list[Activity])
 async def get_activities(
+    repository: ActivityRepository = Depends(get_session),
     session: AsyncSession = Depends(get_session),
-) -> List[Activity]:
+) -> list[Activity]:
     """Get all activities."""
-    return await Activity.get_all(session)
+    return await ActivityRepository.list(session)
 
 
 @router.get("/{id}", response_model=Activity)
 async def get_activity(
-    id: int,
+    id: uuid.UUID,
     session: AsyncSession = Depends(get_session),
-) -> List[Activity]:
+) -> Activity:
     """Get activity by ID."""
-    activity = await Activity.get_by_id(id, session)
+    activity = await ActivityRepository.get(session, id)
     if not activity:
         raise HTTPException(status_code=404, detail="Activity not found")
     return activity
@@ -32,38 +32,45 @@ async def get_activity(
 
 @router.post("/", response_model=Activity, status_code=201)
 async def create_activity(
-    activity: ActivityCreate, session: AsyncSession = Depends(get_session)
+    activity: ActivityInput, session: AsyncSession = Depends(get_session)
 ) -> Activity:
     """Create a new activity."""
-    return await Activity.create(activity, session)
+    activity = Activity.model_validate(activity)
+    return await ActivityRepository.save(session, activity)
 
 
 @router.put("/{id}", response_model=Activity)
 async def update_activity(
-    id: int,
-    update: Activity,
+    id: uuid.UUID,
+    activity: ActivityInput,
     session: AsyncSession = Depends(get_session),
 ) -> Activity:
     """
     Update an existing activity.
     """
-    activity = await Activity.get_by_id(id, session)
-    if not activity:
+    activity_db = await ActivityRepository.get(session, id)
+
+    if not activity_db:
         raise HTTPException(status_code=404, detail="Activity not found")
-    return await Activity.update(activity, update, session)
+
+    activity = Activity.model_validate(activity)
+    activity.id = id
+    activity_db.sqlmodel_update(activity)
+
+    return await ActivityRepository.save(session, activity_db)
 
 
 @router.delete("/{id}")
-async def delete_item(
-    id: int,
+async def delete_activity(
+    id: uuid.UUID,
     session: AsyncSession = Depends(get_session),
 ) -> MessageResponse:
     """
-    Delete an item.
+    Delete an activity.
     """
-    activity = await Activity.get_by_id(id, session)
+    activity = await ActivityRepository.get(session, id)
     if not activity:
         raise HTTPException(status_code=404, detail="Activity not found")
 
-    await Activity.delete(activity, session)
+    await ActivityRepository.delete(session, activity)
     return MessageResponse(message="Activity deleted successfully")
