@@ -1,9 +1,0 @@
-Generic single-database configuration with an async dbapi.
-
-
-alembic revision --autogenerate -m "Update DB"
-
-alembic upgrade head
-
-alembic downgrade -1
-
