@@ -1,7 +1,7 @@
 import datetime
 from garminconnect import Garmin
 
-from app.models import Activity
+from models import Activity
 
 
 class DataPipeline:

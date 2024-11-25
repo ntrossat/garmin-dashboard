@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from core.postgres.db import get_session, AsyncSession
 from models import Activity, ActivityInput, MessageResponse
-from repositories import ActivityRepository
+from repository import ActivityRepository
 
 router = APIRouter()
 

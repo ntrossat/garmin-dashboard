@@ -2,7 +2,7 @@ from sqlmodel import SQLModel, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 
-class BaseRepository:
+class AbstractRepository:
     model = SQLModel
 
     @classmethod

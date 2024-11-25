@@ -1,6 +1,6 @@
-from app.repositories.base_repository import BaseRepository
-from app.models import Activity
+from repository.abstract import AbstractRepository
+from models import Activity
 
 
-class ActivityRepository(BaseRepository):
+class ActivityRepository(AbstractRepository):
     model = Activity

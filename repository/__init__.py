@@ -1,2 +1,1 @@
-
-from app.repositories.activity import ActivityRepository  # noqa: F401
+from repository.activity import ActivityRepository  # noqa: F401

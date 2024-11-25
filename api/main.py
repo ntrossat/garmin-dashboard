@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 
-from app.models import MessageResponse
-from app.routes import activity
+from models import MessageResponse
+from api.routes import activity
 
 app = FastAPI()
 
 
 @app.get("/")
 def read_root() -> MessageResponse:
-
     return MessageResponse(message="Welcome to Garmin Dashboard!")
 
 
