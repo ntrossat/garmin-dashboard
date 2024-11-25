@@ -1,3 +1,4 @@
+import os
 import click
 
 from core.cli.datapipeline import DataPipeline
@@ -8,7 +9,10 @@ def cli():
 
 @cli.command()
 def fetch():
-    garmin = DataPipeline('user','password')
+    user = os.getenv("GARMIN_USERNAME")
+    password = os.getenv("GARMIN_PASSWORD")
+
+    garmin = DataPipeline(user,password)
     garmin.fetch_raw_data()
     click.echo('Fetching Garmin Raw Data')
 
