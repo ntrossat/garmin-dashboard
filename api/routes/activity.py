@@ -3,8 +3,8 @@ import uuid
 from fastapi import APIRouter, HTTPException, Depends
 
 from core.postgres.db import get_session, AsyncSession
-from app.models import Activity, ActivityInput, MessageResponse
-from app.repositories import ActivityRepository
+from models import Activity, ActivityInput, MessageResponse
+from repositories import ActivityRepository
 
 router = APIRouter()
 
